@@ -1,0 +1,48 @@
+{
+  "name": "json-shema",
+  "version": "1.0.0",
+  "description": "表单校验",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env rollup -w -c ./build/build.dev.js",
+    "build": "cross-env rollup -c ./build/build.js && tsc --declarationDir types",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/936446507/json-shema.git"
+  },
+  "typings": "types/index.d.ts",
+  "files": [
+    "src",
+    "dist/*.js",
+    "types/*.d.ts"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@rollup/plugin-babel": "^5.0.2",
+    "cross-env": "^7.0.2",
+    "rollup": "^2.13.1",
+    "rollup-plugin-generate-html-template": "^1.6.1",
+    "rollup-plugin-livereload": "^1.3.0",
+    "rollup-plugin-postcss": "^3.1.1",
+    "rollup-plugin-serve": "^1.0.1",
+    "rollup-plugin-typescript": "^1.0.1",
+    "rollup-plugin-uglify": "^6.0.4",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.3"
+  },
+  "keywords": [
+    "json-schema",
+    "form",
+    "json"
+  ],
+  "author": "Takashi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/936446507/json-shema/issues"
+  },
+  "homepage": "https://github.com/936446507/json-shema#readme",
+  "dependencies": {}
+}

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "es",
+    "target": "ESNext",
+    "declaration": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "noUnusedLocals": true
+  },
+  "include": [
+    "src/**/*",
+  ],
+  "exclude": [
+    "node_modules/**/*"
+  ]
+}
