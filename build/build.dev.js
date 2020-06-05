@@ -10,7 +10,7 @@ const resolveFile = function (filePath) {
 };
 const PORT = 3002;
 module.exports = {
-  input,
+  input: resolveFile('src/app.ts'),
   output,
   watch: {
     include: 'src/**',
