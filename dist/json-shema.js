@@ -1,3 +1,5 @@
+
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 function checkType(data, type) {
     return Object.prototype.toString.call(data).indexOf(type) >= 0;
 }
@@ -62,5 +64,21 @@ function checkPropertyEnum(key, propertyEnum, value, message) {
     }
 }
 
-export default validate;
-export { checkProperty, checkRequired, validate };
+const result = validate({
+    key: 1,
+    key1: 1,
+    key2: () => { },
+}, {
+    required: [
+        {
+            key: 'key3',
+            message: 'message',
+        },
+    ],
+    properties: {
+        key: {
+            type: 'String',
+        },
+    },
+});
+console.log(result);

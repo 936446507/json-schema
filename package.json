@@ -1,5 +1,5 @@
 {
-  "name": "json-shema",
+  "name": "json-schema",
   "version": "1.0.0",
   "description": "表单校验",
   "main": "index.js",
