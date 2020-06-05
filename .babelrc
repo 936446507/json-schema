@@ -1,0 +1,18 @@
+{
+  "plugins": [[
+    "transform-runtime",
+    {
+      "helpers": false,
+      "polyfill": false,
+      "regenerator": true,
+      "moduleName": "babel-runtime"
+    }
+  ]],
+  "presets": [
+    ["latest", {
+      "es2015": {
+        "modules": false
+      }
+    }]
+  ]
+}

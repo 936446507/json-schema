@@ -1,5 +1,3 @@
-
-(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 function checkType(data, type) {
     return Object.prototype.toString.call(data).indexOf(type) >= 0;
 }
@@ -7,7 +5,7 @@ function isString(data) {
     return checkType(data, 'String');
 }
 
-function validate(json, schema = {}) {
+function validate(json, schema) {
     const { required, properties } = schema;
     const requiredResult = (required && checkRequired(json, required)) || [];
     const propertyResult = (properties && checkProperty(json, properties)) || [];
@@ -64,21 +62,5 @@ function checkPropertyEnum(key, propertyEnum, value, message) {
     }
 }
 
-const result = validate({
-    key: 1,
-    key1: 1,
-    key2: () => { },
-}, {
-    required: [
-        {
-            key: 'key3',
-            message: 'message',
-        },
-    ],
-    properties: {
-        key: {
-            type: 'String',
-        },
-    },
-});
-console.log(result);
+export default validate;
+export { checkProperty, checkRequired, validate };

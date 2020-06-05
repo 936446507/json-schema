@@ -1,5 +1,5 @@
 const path = require('path');
-const { uglify } = require('rollup-plugin-uglify');
+const uglify = require('rollup-plugin-uglify-es');
 
 const baseConfig = require('./config');
 const { input, output, plugins: baseConfigPlugins } = baseConfig;

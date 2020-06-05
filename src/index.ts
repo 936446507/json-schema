@@ -10,7 +10,7 @@ import {
   SchemaPropertyEnum,
 } from './interface';
 
-function validate(json: Json, schema: Schema = {}): ValidateResult[] {
+function validate(json: Json, schema: Schema): ValidateResult[] {
   const { required, properties } = schema;
   const requiredResult = (required && checkRequired(json, required)) || [];
   const propertyResult = (properties && checkProperty(json, properties)) || [];
