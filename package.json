@@ -22,10 +22,18 @@
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
     "@rollup/plugin-babel": "^5.0.2",
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^8.1.0",
+    "@types/json-schema": "^7.0.4",
     "cross-env": "^7.0.2",
+    "json-schema": "^0.2.5",
     "rollup": "^2.13.1",
+    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-generate-html-template": "^1.6.1",
+    "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-livereload": "^1.3.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-postcss": "^3.1.1",
     "rollup-plugin-serve": "^1.0.1",
     "rollup-plugin-typescript": "^1.0.1",
@@ -44,5 +52,8 @@
     "url": "https://github.com/936446507/json-shema/issues"
   },
   "homepage": "https://github.com/936446507/json-shema#readme",
-  "dependencies": {}
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
+  "type": "module"
 }

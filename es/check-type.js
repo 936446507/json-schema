@@ -1,5 +1,6 @@
 function checkType(data, type) {
-    return Object.prototype.toString.call(data).indexOf(type) >= 0;
+    const reg = new RegExp(`${type}`, 'gi');
+    return reg.test(Object.prototype.toString.call(data));
 }
 function isArray(data) {
     return checkType(data, 'Array');

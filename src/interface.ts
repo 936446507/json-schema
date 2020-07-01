@@ -1,5 +1,13 @@
-import { Data, DataType } from './check-type';
+import { Data } from './check-type';
 
+export type DataType =
+  | 'string'
+  | 'number'
+  | 'boolean'
+  | 'null'
+  | 'object'
+  | 'array';
+export type BestValueKey = 'minLength' | 'maxLength' | 'minNum' | 'maxNum';
 export type ValidateResult = { key: string; message: string };
 
 export type Json = {
@@ -20,14 +28,11 @@ export type SchemaPropertyConfigItem = SchemaProperty & {
   };
 };
 
+export type SchemaPropertyKey = keyof SchemaProperty;
 export type SchemaPropertyEnum = string | number;
 export type SchemaProperty = {
   type?: DataType;
   enum?: SchemaPropertyEnum[];
-  minLength?: number;
-  maxLength?: number;
-  minNum?: number;
-  maxNum?: number;
-  exclusiveMinimum?: boolean;
-  exclusiveMaximum?: boolean;
+} & {
+  [key in BestValueKey]?: number;
 };

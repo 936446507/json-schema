@@ -1,7 +1,7 @@
 declare type Data = string | number | undefined | null | boolean | object | symbol;
 declare type PrimitiveType = 'String' | 'Number' | 'Undefined' | 'Null' | 'Boolean';
 declare type DataType = PrimitiveType | 'Object' | 'Symbol' | 'Array' | 'Function' | 'RegExp' | 'Date' | 'Error';
-declare function checkType(data: Data, type: DataType): boolean;
+declare function checkType(data: Data, type: String): boolean;
 declare function isArray(data: Data): data is any[];
 declare function isBoolean(data: Data): data is boolean;
 declare function isNull(data: Data): data is null;

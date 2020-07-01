@@ -10,8 +10,10 @@ type DataType =
   | 'Date'
   | 'Error';
 
-function checkType(data: Data, type: DataType): boolean {
-  return Object.prototype.toString.call(data).indexOf(type) >= 0;
+function checkType(data: Data, type: String): boolean {
+  const reg = new RegExp(`${type}`, 'gi');
+  // return Object.prototype.toString.call(data).indexOf(type) >= 0;
+  return reg.test(Object.prototype.toString.call(data));
 }
 
 function isArray(data: Data): data is any[] {

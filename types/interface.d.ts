@@ -1,4 +1,6 @@
-import { Data, DataType } from './check-type';
+import { Data } from './check-type';
+export declare type DataType = 'string' | 'number' | 'boolean' | 'null' | 'object' | 'array';
+export declare type BestValueKey = 'minLength' | 'maxLength' | 'minNum' | 'maxNum';
 export declare type ValidateResult = {
     key: string;
     message: string;
@@ -22,14 +24,11 @@ export declare type SchemaPropertyConfigItem = SchemaProperty & {
         [key in keyof SchemaProperty]: string;
     };
 };
+export declare type SchemaPropertyKey = keyof SchemaProperty;
 export declare type SchemaPropertyEnum = string | number;
 export declare type SchemaProperty = {
     type?: DataType;
     enum?: SchemaPropertyEnum[];
-    minLength?: number;
-    maxLength?: number;
-    minNum?: number;
-    maxNum?: number;
-    exclusiveMinimum?: boolean;
-    exclusiveMaximum?: boolean;
+} & {
+    [key in BestValueKey]?: number;
 };

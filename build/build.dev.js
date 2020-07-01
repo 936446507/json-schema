@@ -4,11 +4,12 @@ const livereload = require('rollup-plugin-livereload');
 const template = require('rollup-plugin-generate-html-template');
 
 const baseConfig = require('./config');
-const { input, output, plugins: baseConfigPlugins } = baseConfig;
+const { output, plugins: baseConfigPlugins } = baseConfig;
 const resolveFile = function (filePath) {
   return path.join(__dirname, '..', filePath);
 };
 const PORT = 3002;
+
 module.exports = {
   input: resolveFile('src/app.ts'),
   output,

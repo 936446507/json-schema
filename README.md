@@ -36,16 +36,14 @@ const result = validate(json, schema);
 
 #### Properties key表
 
-> type Type = 'String' | 'Number' | 'Undefined' | 'Null' | 'Boolean' |'Object' | 'Symbol' | 'Array' | 'Function' | 'RegExp' | 'Date' | 'Error'
+> type Type =  | 'string' | 'number' | 'boolean' | 'null' | 'object' | 'array'
 
-|       key        | 必填 |             类型              | 版本  |    日期    |         描述         | 使用类型限制 |
-| :--------------: | :--: | :---------------------------: | :---: | :--------: | :------------------: | :----------: |
-|       type       |  否  |             Type              | 1.0.0 | 2020.06.03 |         类型         |              |
-|     messages     |  否  | {[key in Properties]: string} | 1.0.0 | 2020.06.03 | 自定义校验规则提示语 |              |
-|       enum       |  否  |      (string\|number)[]       | 1.0.0 | 2020.06.03 |        枚举值        |              |
-|    minLength     |  否  |            number             | 1.0.0 | 2020.06.03 |       最小长度       | string,array |
-|    maxLength     |  否  |            number             | 1.0.0 | 2020.06.03 |       最大长度       | string,array |
-|      minNum      |  否  |            number             | 1.0.0 | 2020.06.03 |        最小值        |    number    |
-|      maxNum      |  否  |            number             | 1.0.0 | 2020.06.03 |        最大值        |    number    |
-| exclusiveMinimum |  否  |            boolean            | 1.0.0 | 2020.06.03 |  true:不包括最小值   |    number    |
-| exclusiveMaximum |  否  |            boolean            | 1.0.0 | 2020.06.03 |  true:不包括最大值   |    number    |
+|    key    | 必填 |             类型              | 版本  |    日期    |         描述         | 使用类型限制  |
+| :-------: | :--: | :---------------------------: | :---: | :--------: | :------------------: | :-----------: |
+|   type    |  否  |             Type              | 1.0.0 | 2020.06.03 |         类型         |               |
+| messages  |  否  | {[key in Properties]: string} | 1.0.0 | 2020.06.03 | 自定义校验规则提示语 |               |
+|   enum    |  否  |      (string\|number)[]       | 1.0.0 | 2020.06.03 |        枚举值        | string,number |
+| minLength |  否  |            number             | 1.0.0 | 2020.06.03 |       最小长度       | string,array  |
+| maxLength |  否  |            number             | 1.0.0 | 2020.06.03 |       最大长度       | string,array  |
+|  minNum   |  否  |            number             | 1.0.0 | 2020.06.03 |        最小值        |    number     |
+|  maxNum   |  否  |            number             | 1.0.0 | 2020.06.03 |        最大值        |    number     |
