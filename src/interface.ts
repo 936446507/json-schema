@@ -7,7 +7,15 @@ export type DataType =
   | 'null'
   | 'object'
   | 'array';
-export type BestValueKey = 'minLength' | 'maxLength' | 'minNum' | 'maxNum';
+export type BestValueKey =
+  | 'minLength'
+  | 'maxLength'
+  | 'minNum'
+  | 'maxNum'
+  | 'exclusiveMinNum'
+  | 'exclusiveMaxNum'
+  | 'minItems'
+  | 'maxItems';
 export type ValidateResult = { key: string; message: string };
 
 export type Json = {
@@ -31,8 +39,14 @@ export type SchemaPropertyConfigItem = SchemaProperty & {
 export type SchemaPropertyKey = keyof SchemaProperty;
 export type SchemaPropertyEnum = string | number;
 export type SchemaProperty = {
-  type?: DataType;
+  type: DataType;
   enum?: SchemaPropertyEnum[];
+  pattern?: string;
+  multipleOf?: number;
+  items?: SchemaProperty;
+  minItems?: number;
+  maxItems?: number;
+  uniqueItems?: boolean;
 } & {
   [key in BestValueKey]?: number;
 };

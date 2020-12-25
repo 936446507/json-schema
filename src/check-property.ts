@@ -1,29 +1,17 @@
 import { Data, checkType } from './check-type';
+import { checkPropertyEnum, checkBestValue } from './check-common-property';
+import { checkPropertyPattern } from './check-string-property';
+import { checkPropertyMultipleOf } from './check-number-property';
+import { checkPropertyUniqueItems } from './check-array-property';
 
 import {
   DataType,
   BestValueKey,
   ValidateResult,
-  SchemaPropertyKey,
   Json,
   SchemaPropertyConfig,
   SchemaPropertyConfigItem,
-  SchemaPropertyEnum,
 } from './interface';
-
-function checkPropertyLimitType(
-  key: string,
-  property: SchemaPropertyKey,
-  value: Data,
-  limitTypes: DataType[]
-): ValidateResult | void {
-  if (!limitTypes.some((type) => checkType(value, type))) {
-    return {
-      key,
-      message: `${property} 使用类型限制为 ${limitTypes.toString()}`,
-    };
-  }
-}
 
 // property 检查
 function checkProperty(
@@ -51,34 +39,68 @@ function checkPropertyItem(
   value: Data,
   config: SchemaPropertyConfigItem
 ): ValidateResult[] {
-  const result: ValidateResult[] = [];
-  const { type, enum: propertyEnum, messages, ...bestValueConfig } = config;
+  const {
+    type,
+    enum: propertyEnum,
+    pattern,
+    multipleOf,
+    items,
+    uniqueItems,
+    messages,
+    ...bestValueConfig
+  } = config;
   const bestValueConfigKeys = Object.keys(bestValueConfig) as BestValueKey[];
-  const typeResult =
-    type && checkPropertyType(key, type, value, messages?.type);
-  const enumResult =
-    propertyEnum && checkPropertyEnum(key, propertyEnum, value, messages?.enum);
-  // 检查最值
-  const bestValueResult =
-    bestValueConfigKeys.length &&
-    bestValueConfigKeys.reduce((result, bestValueKey) => {
-      result.push(
-        ...checkBestValue(
-          key,
-          bestValueKey,
-          bestValueConfig[bestValueKey],
-          value as Number,
-          messages?.type
-        )
-      );
-      return result;
-    }, []);
 
-  typeResult && typeResult.length && result.push(...typeResult);
-  enumResult && enumResult.length && result.push(...enumResult);
-  bestValueResult && bestValueResult.length && result.push(...bestValueResult);
-  return result;
+  const typeResult = checkPropertyType(key, type, value, messages?.type);
+  const enumResult = propertyEnum
+    ? checkPropertyEnum(key, propertyEnum, value, messages?.enum)
+    : [];
+  const patternResult = pattern
+    ? checkPropertyPattern(key, pattern, value as string, messages?.pattern)
+    : [];
+  const multipleOfResult = multipleOf
+    ? checkPropertyMultipleOf(
+        key,
+        multipleOf,
+        value as number,
+        messages?.multipleOf
+      )
+    : [];
+  const uniqueItemsResult = uniqueItems
+    ? checkPropertyUniqueItems(
+        key,
+        uniqueItems,
+        value as any[],
+        messages?.uniqueItems
+      )
+    : [];
+
+  // 检查最值
+  const bestValueResult = bestValueConfigKeys.length
+    ? bestValueConfigKeys.reduce((result, bestValueKey) => {
+        result.push(
+          ...checkBestValue(
+            key,
+            bestValueKey,
+            bestValueConfig[bestValueKey],
+            value as number | string | any[],
+            messages?.type
+          )
+        );
+        return result;
+      }, [] as ValidateResult[])
+    : [];
+
+  return [
+    ...typeResult,
+    ...enumResult,
+    ...patternResult,
+    ...multipleOfResult,
+    ...uniqueItemsResult,
+    ...bestValueResult,
+  ];
 }
+// 检查property类型
 function checkPropertyType(
   key: string,
   type: DataType,
@@ -95,78 +117,5 @@ function checkPropertyType(
   return result;
 }
 
-function checkPropertyEnum(
-  key: string,
-  propertyEnum: SchemaPropertyEnum[],
-  value: Data,
-  message: string
-): ValidateResult[] {
-  const result = [];
-  const limitTypes: DataType[] = ['string', 'number'];
-  const limitTypeResult = checkPropertyLimitType(
-    key,
-    'enum',
-    value,
-    limitTypes
-  );
-
-  limitTypeResult && result.push(limitTypeResult);
-  if (!propertyEnum.some((item) => item === value)) {
-    result.push({
-      key,
-      message:
-        message || `enum ${propertyEnum.toString()} 没有 ${value.toString()}`,
-    });
-  }
-  return result;
-}
-
-function checkBestValue(
-  key: string,
-  bestValueKey: BestValueKey,
-  bestValue: number,
-  value: Number,
-  message: string
-): ValidateResult[] {
-  console.log(key, bestValue, value, message);
-  const result = [];
-  const limitTypeConfig: {
-    [key in BestValueKey]: DataType[];
-  } = {
-    minLength: ['string', 'array'],
-    maxLength: ['string', 'array'],
-    minNum: ['number'],
-    maxNum: ['number'],
-  };
-  const limitTypes = limitTypeConfig[bestValueKey];
-  const limitTypeResult = checkPropertyLimitType(
-    key,
-    bestValueKey,
-    value,
-    limitTypes
-  );
-  limitTypeResult && result.push(limitTypeResult);
-  if (bestValueKey.indexOf('min') >= 0 && value < bestValue) {
-    result.push({
-      key,
-      message: message || `最小值为 ${bestValue}`,
-    });
-  }
-  if (bestValueKey.indexOf('max') >= 0 && value > bestValue) {
-    result.push({
-      key,
-      message: message || `最大值为 ${bestValue}`,
-    });
-  }
-
-  return result;
-}
-
-export {
-  checkProperty,
-  checkPropertyItem,
-  checkPropertyType,
-  checkPropertyEnum,
-  checkBestValue,
-};
+export { checkPropertyItem };
 export default checkProperty;

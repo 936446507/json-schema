@@ -1,5 +1,8 @@
 ## json-schema
-### 表单校验
+
+### 可添加自定义提示语的表单校验
+
+> 现版本：v1.0.0
 
 ```javascript
 import validate from 'json-schema';
@@ -28,7 +31,7 @@ const result = validate(json, schema);
 |    key     | 必填 |   类型   | 版本  |    日期    |          描述           |
 | :--------: | :--: | :------: | :---: | :--------: | :---------------------: |
 |  required  |  否  | Required | 1.0.0 | 2020.06.03 | json存在的key集合,可自定义提示语 |
-| properties |  否  |  object  | 1.0.0 | 2020.06.03 | json中key的表单规则定义 |
+| properties |  否  |  Properties  | 1.0.0 | 2020.06.03 | json中key的表单规则定义 |
 |   anyOf    |  否  |          | 1.1.0 |            |                         |
 |   allOf    |  否  |          | 1.1.0 |            |                         |
 |   oneOf    |  否  |          | 1.1.0 |            |                         |
@@ -47,3 +50,11 @@ const result = validate(json, schema);
 | maxLength |  否  |            number             | 1.0.0 | 2020.06.03 |       最大长度       | string,array  |
 |  minNum   |  否  |            number             | 1.0.0 | 2020.06.03 |        最小值        |    number     |
 |  maxNum   |  否  |            number             | 1.0.0 | 2020.06.03 |        最大值        |    number     |
+|  pattern   |  否  |            string             | 1.1.0 | 2020.12.24 |        匹配正则        |    string     |
+|  multipleOf   |  否  |            number             | 1.1.0 | 2020.12.24 |        数值满足倍数        |    number     |
+|  exclusiveMinNum   |  否  |            number             | 1.1.0 | 2020.12.24 |        开区间最小值        |    number     |
+|  exclusiveMaxNum   |  否  |            number             | 1.1.0 | 2020.12.24 |        开区间最大值        |    number     |
+|  items   |  否  |            Properties             | 1.1.0 | 2020.12.24 |        数组成员类型        |    array     |
+|  minItems   |  否  |            number             | 1.1.0 | 2020.12.24 |        数组元素最小个数        |    array     |
+|  maxItems   |  否  |            number             | 1.1.0 | 2020.12.24 |        数组元素最大个数        |    array     |
+|  uniqueItems   |  否  |            boolean             | 1.1.0 | 2020.12.24 |        数组元素是否必须唯一        |    array     |

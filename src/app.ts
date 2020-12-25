@@ -2,10 +2,13 @@ import { Schema } from './interface';
 import validates from './index';
 
 const json = {
-  key: 1,
+  key: 'ddd',
   key1: 1,
   key2: 1,
-  key3: 5,
+  key3: 10,
+  key4: 11,
+  key5: 'ssssfdsafs',
+  key6: [1, 1, 1, 2],
 };
 const schema: Schema = {
   required: [
@@ -17,6 +20,7 @@ const schema: Schema = {
   properties: {
     key: {
       type: 'string',
+      minLength: 10,
     },
     key2: {
       type: 'number',
@@ -24,8 +28,20 @@ const schema: Schema = {
     },
     key3: {
       type: 'number',
-      minNum: 10,
+      exclusiveMinNum: 10,
       maxNum: 20,
+    },
+    key4: {
+      type: 'number',
+      multipleOf: 10,
+    },
+    key5: {
+      type: 'string',
+      pattern: 'ss+',
+    },
+    key6: {
+      type: 'array',
+      uniqueItems: true,
     },
   },
 };
