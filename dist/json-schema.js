@@ -1,6 +1,6 @@
-
-(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
 
 function checkType(data, type) {
     const reg = new RegExp(`${type}`, 'gi');
@@ -226,52 +226,7 @@ function checkRequired(json, required) {
     return result;
 }
 
-const json = {
-    key: 'ddd',
-    key1: 1,
-    key2: 1,
-    key3: 10,
-    key4: 11,
-    key5: 'ssssfdsafs',
-    key6: [1, 1, 1, 2],
-};
-const schema = {
-    required: [
-        {
-            key: 'key3',
-            message: 'message',
-        },
-    ],
-    properties: {
-        key: {
-            type: 'string',
-            minLength: 10,
-        },
-        key2: {
-            type: 'number',
-            enum: [1, 2],
-        },
-        key3: {
-            type: 'number',
-            exclusiveMinNum: 10,
-            maxNum: 20,
-        },
-        key4: {
-            type: 'number',
-            multipleOf: 10,
-        },
-        key5: {
-            type: 'string',
-            pattern: 'ss+',
-        },
-        key6: {
-            type: 'array',
-            uniqueItems: true,
-            minItems: 5,
-            maxItems: 6,
-            items: { type: 'string' },
-        },
-    },
-};
-const result = validate(json, schema);
-console.log(result);
+exports.checkProperty = checkProperty;
+exports.checkRequired = checkRequired;
+exports.default = validate;
+exports.validate = validate;
