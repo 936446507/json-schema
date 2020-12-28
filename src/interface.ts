@@ -30,9 +30,10 @@ export type SchemaRequired = (string | { key: string; message: string })[];
 export type SchemaPropertyConfig = {
   [key: string]: SchemaPropertyConfigItem;
 };
+
 export type SchemaPropertyConfigItem = SchemaProperty & {
   messages?: {
-    [key in keyof SchemaProperty]: string;
+    [key in keyof Omit<SchemaProperty, 'items'>]: string;
   };
 };
 
@@ -43,7 +44,7 @@ export type SchemaProperty = {
   enum?: SchemaPropertyEnum[];
   pattern?: string;
   multipleOf?: number;
-  items?: SchemaProperty;
+  items?: SchemaProperty | SchemaProperty[];
   minItems?: number;
   maxItems?: number;
   uniqueItems?: boolean;

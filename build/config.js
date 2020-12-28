@@ -1,6 +1,3 @@
-// import resolve from '@rollup/plugin-node-resolve';
-// import commonjs from '@rollup/plugin-commonjs';
-
 const path = require('path');
 const { babel } = require('@rollup/plugin-babel');
 const typescript = require('rollup-plugin-typescript');

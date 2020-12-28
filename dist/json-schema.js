@@ -6,6 +6,9 @@ function checkType(data, type) {
     const reg = new RegExp(`${type}`, 'gi');
     return reg.test(Object.prototype.toString.call(data));
 }
+function isArray(data) {
+    return checkType(data, 'Array');
+}
 function isString(data) {
     return checkType(data, 'String');
 }
@@ -127,6 +130,23 @@ function checkPropertyUniqueItems(key, uniqueItems, value, message) {
     }
     return result;
 }
+function checkPropertyItems(key, itemConfigs, arr) {
+    const result = [];
+    const isArrConfig = isArray(itemConfigs);
+    if (isArrConfig &&
+        arr.length !== itemConfigs.length) {
+        result.push({
+            key,
+            message: 'items 配置与数组元素长度不一致',
+        });
+        return result;
+    }
+    for (let i = 0; i < arr.length; i++) {
+        const validate = checkPropertyItem(`${key} arr[${i}]`, arr[i], isArray(itemConfigs) ? itemConfigs[i] : itemConfigs);
+        result.push(...validate);
+    }
+    return result;
+}
 
 function checkProperty(json, properties) {
     const result = [];
@@ -159,6 +179,9 @@ function checkPropertyItem(key, value, config) {
     const uniqueItemsResult = uniqueItems
         ? checkPropertyUniqueItems(key, uniqueItems, value, messages?.uniqueItems)
         : [];
+    const ItemsResult = items
+        ? checkPropertyItems(key, items, value)
+        : [];
     const bestValueResult = bestValueConfigKeys.length
         ? bestValueConfigKeys.reduce((result, bestValueKey) => {
             result.push(...checkBestValue(key, bestValueKey, bestValueConfig[bestValueKey], value, messages?.type));
@@ -171,6 +194,7 @@ function checkPropertyItem(key, value, config) {
         ...patternResult,
         ...multipleOfResult,
         ...uniqueItemsResult,
+        ...ItemsResult,
         ...bestValueResult,
     ];
 }
@@ -243,6 +267,9 @@ const schema = {
         key6: {
             type: 'array',
             uniqueItems: true,
+            minItems: 5,
+            maxItems: 6,
+            items: { type: 'string' },
         },
     },
 };

@@ -2,7 +2,10 @@ import { Data, checkType } from './check-type';
 import { checkPropertyEnum, checkBestValue } from './check-common-property';
 import { checkPropertyPattern } from './check-string-property';
 import { checkPropertyMultipleOf } from './check-number-property';
-import { checkPropertyUniqueItems } from './check-array-property';
+import {
+  checkPropertyUniqueItems,
+  checkPropertyItems,
+} from './check-array-property';
 
 import {
   DataType,
@@ -74,6 +77,9 @@ function checkPropertyItem(
         messages?.uniqueItems
       )
     : [];
+  const ItemsResult = items
+    ? checkPropertyItems(key, items, value as DataType[])
+    : [];
 
   // 检查最值
   const bestValueResult = bestValueConfigKeys.length
@@ -97,6 +103,7 @@ function checkPropertyItem(
     ...patternResult,
     ...multipleOfResult,
     ...uniqueItemsResult,
+    ...ItemsResult,
     ...bestValueResult,
   ];
 }

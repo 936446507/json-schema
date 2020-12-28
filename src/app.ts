@@ -42,6 +42,9 @@ const schema: Schema = {
     key6: {
       type: 'array',
       uniqueItems: true,
+      minItems: 5,
+      maxItems: 6,
+      items: { type: 'string' },
     },
   },
 };
